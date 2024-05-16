@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import { categories } from "../../constants";
-//import { Image } from "react-native-feather";
 
 const Categories = () => {
   const [activeCategory, setActiveCategory] = useState(null);
