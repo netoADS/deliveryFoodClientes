@@ -38,15 +38,15 @@ export const featured = {
   restaurants: [
     {
       id: 1,
-      name: "papa johns",
+      name: "Kpricho Lanches - Leste SJC",
       image: require("../../assets/images/restaurants/pizzatesteimage.jpg"),
-      description: "hot and Spicy pizzas",
-      lng: 38.2145602,
-      lat: -85.5324269,
-      address: "434 second street",
-      stars: 4,
+      description: "Lanches rápidos e saborosos. Venha experimentar!",
+      lng: -45.852608404258845,
+      lat: -23.180430447715885,
+      address: "Av. Pres. Juscelino Kubitschek, 7858\nVila Tatetuba, São José dos Campos - SP,\n12220-000",
+      stars: 5,
       reviews: "4.4k",
-      category: "Fast Food",
+      category: "Hamburgueria",
       dishes: [
         {
           id: 1,

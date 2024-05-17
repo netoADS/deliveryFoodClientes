@@ -83,26 +83,27 @@ const CartScreen = () => {
         className="p-6 px-8 rounded-t-3xl space-y-4"
       >
         <View className="flex-row justify-between">
-            <Text className="text-gray-700">Subtotal</Text>
-            <Text className="text-gray-700">R$ 20</Text>
+          <Text className="text-gray-700">Subtotal</Text>
+          <Text className="text-gray-700">R$ 20</Text>
         </View>
         <View className="flex-row justify-between">
-            <Text className="text-gray-700">Taxa entrega</Text>
-            <Text className="text-gray-700">R$ 2</Text>
+          <Text className="text-gray-700">Taxa entrega</Text>
+          <Text className="text-gray-700">R$ 2</Text>
         </View>
         <View className="flex-row justify-between">
-            <Text className="text-gray-700 font-extrabold">Total do pedido</Text>
-            <Text className="text-gray-700 font-extrabold">R$ 22</Text>
+          <Text className="text-gray-700 font-extrabold">Total do pedido</Text>
+          <Text className="text-gray-700 font-extrabold">R$ 22</Text>
         </View>
         <View>
-            <TouchableOpacity
-            onPress={()=> navigation.navigate('OrderPrepairing')}
-            style={{backgroundColor: themeColors.bgColor(1)}}
-            className="p-3 rounded-full">
-                <Text className="text-white text-center font-bold text-lg">
-                    Realizar Pedido
-                </Text>
-            </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("OrderPrepairing")}
+            style={{ backgroundColor: themeColors.bgColor(1) }}
+            className="p-3 rounded-full"
+          >
+            <Text className="text-white text-center font-bold text-lg">
+              Realizar Pedido
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
