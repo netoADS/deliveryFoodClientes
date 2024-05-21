@@ -5,10 +5,17 @@ import MapView, { Marker } from "react-native-maps";
 import { featured } from "../../constants";
 import { themeColors } from "../../theme";
 import * as Icon from "react-native-feather";
+import { useDispatch, useSelector } from "react-redux";
+import { emptyCart, selectRestaurant } from "../../slices";
 
 const DeliveryScreen = () => {
-  const restaurant = featured.restaurants[0];
+  const restaurant = useSelector(selectRestaurant);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const cancelarPedido = () => {
+    navigation.navigate("Home");
+    dispatch(emptyCart());
+  };
 
   return (
     <View className="flex-1">
@@ -79,7 +86,7 @@ const DeliveryScreen = () => {
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate("Home")}
+              onPress={cancelarPedido}
               className="bg-white p-2 rounded-full"
             >
               <Icon.X stroke={"red"} strokeWidth={4} />

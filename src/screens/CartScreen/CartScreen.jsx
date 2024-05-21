@@ -1,13 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { featured } from "../../constants";
 import { themeColors } from "../../theme";
 import * as Icon from "react-native-feather";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeFromCart,
+  selectCartItems,
+  selectCartTotal,
+  selectRestaurant,
+} from "../../slices";
 
 const CartScreen = () => {
-  const restaurant = featured.restaurants[0];
+  const restaurant = useSelector(selectRestaurant);
   const navigation = useNavigation();
+  const cartItems = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
+  const [grupoItems, setGrupoItems] = useState({});
+  const dispatch = useDispatch();
+  const taxaEntrega = 2;
+
+  useEffect(() => {
+    const items = cartItems.reduce((group, item) => {
+      if (group[item.id]) {
+        group[item.id].push(item);
+      } else {
+        group[item.id] = [item];
+      }
+      return group;
+    }, {});
+    setGrupoItems(items);
+  }, [cartItems]);
+
   return (
     <View className="bg-white flex-1 top-5">
       {/* back button */}
@@ -48,14 +73,15 @@ const CartScreen = () => {
         }}
         className="bg-gray-50 pt-5"
       >
-        {restaurant.dishes.map((dishes, index) => {
+        {Object.entries(grupoItems).map(([key, items]) => {
+          let dishes = items[0];
           return (
             <View
-              key={index}
+              key={key}
               className="flex-row items-center space-x-3 py-2 px-4 bg-white rounded-3xl mx-2 mb-3 shadow-lg"
             >
               <Text className="font-bold" style={{ color: themeColors.text }}>
-                2 x
+                {items.length} x
               </Text>
               <Image className="h-14 w-14 rounded-full" source={dishes.image} />
               <Text className="flex-1 font-bold text-gray-700">
@@ -63,6 +89,7 @@ const CartScreen = () => {
               </Text>
               <Text className="font-semibold text-base">R$ {dishes.price}</Text>
               <TouchableOpacity
+                onPress={() => dispatch(removeFromCart({ id: dishes.id }))}
                 className="p-1 rounded-full"
                 style={{ backgroundColor: themeColors.bgColor(1) }}
               >
@@ -84,15 +111,17 @@ const CartScreen = () => {
       >
         <View className="flex-row justify-between">
           <Text className="text-gray-700">Subtotal</Text>
-          <Text className="text-gray-700">R$ 20</Text>
+          <Text className="text-gray-700">R$ {cartTotal}</Text>
         </View>
         <View className="flex-row justify-between">
           <Text className="text-gray-700">Taxa entrega</Text>
-          <Text className="text-gray-700">R$ 2</Text>
+          <Text className="text-gray-700">R$ {taxaEntrega}</Text>
         </View>
         <View className="flex-row justify-between">
           <Text className="text-gray-700 font-extrabold">Total do pedido</Text>
-          <Text className="text-gray-700 font-extrabold">R$ 22</Text>
+          <Text className="text-gray-700 font-extrabold">
+            R$ {taxaEntrega + cartTotal}
+          </Text>
         </View>
         <View>
           <TouchableOpacity
